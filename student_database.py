@@ -3,6 +3,7 @@ import sys
 import pymysql
 from Student import Student
 
+
 def connection():
     dbconnection = pymysql.connect("localhost", "root", "", "school")
     return dbconnection
@@ -11,9 +12,8 @@ def connection():
 def add_student(student_object):
     is_added = False
     db = connection()
-    sql = "insert into student(first_name,middle_name,last_name,address,contact_no) values ('{}','{}','{}','{}','{}')".format(
-        student_object.getFirstName(), student_object.getMiddleName(), student_object.getLastName(),
-        student_object.getAddress(), student_object.getContactNo())
+    sql = "insert into student(name,address,contact_no) values ('{}','{}','{}')".format(
+        student_object.getName(), student_object.getAddress(), student_object.getContactNo())
     cursor = db.cursor()
     try:
         cursor.execute(sql)
@@ -35,11 +35,9 @@ def show_student(student_object):
     result = cursor.fetchall()
     for r in result:
         print("Roll No={}".format(r[0]))
-        print("First Name={}".format(r[1]))
-        print("Middle Name={}".format(r[2]))
-        print("Last Name={}".format(r[3]))
-        print("Address={}".format(r[4]))
-        print("Contact No={}".format(r[5]))
+        print("Name={}".format(r[1]))
+        print("Address={}".format(r[2]))
+        print("Contact No={}".format(r[3]))
     try:
         cursor.execute(sql)
         db.commit()
@@ -58,8 +56,67 @@ def search_student_by_roll_no(roll_no):
     cursor.execute(sql)
     result = cursor.fetchone()
     if result:
-        s = Student(roll_no=result[0],first_name=result[1], middle_name=result[2], last_name=result[3], address=result[4],
-                    contact_no=result[5])
-        s.setRollNo(result[0])
+        s = Student(roll_no=result[0], name=result[1], address=result[2],
+                    contact_no=result[3])
+        s.setRollNo()
     return result
     return s
+
+
+def search_student_by_name(name):
+    db = connection()
+    sql = "select * from student where first_name='{}'".format(name)
+    cursor = db.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if result:
+        s = Student(roll_no=result[0], name=result[1], address=result[2],
+                    contact_no=result[3])
+        s.setName()
+    return result
+    return s
+
+
+def search_student_by_address(address):
+    db = connection()
+    sql = "select * from student where address='{}'".format(address)
+    cursor = db.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if result:
+        s = Student(roll_no=result[0], name=result[1], address=result[2],
+                    contact_no=result[3])
+        s.setAddress()
+    return result
+    return s
+
+
+def search_by_contact_no(contact_no):
+    db = connection()
+    sql = "select * from student where address='{}'".format(contact_no)
+    cursor = db.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    if result:
+        s = Student(roll_no=result[0], name=result[1], address=result[2],
+                    contact_no=result[3])
+        s.setContactNo()
+    return result
+    return s
+
+
+def update_student_only_name(student_object):
+    is_updated = False
+    db = connection()
+    sql = "update student set name='{}' where roll_no='{}'".format(student_object.getName(), student_object.getRollNo())
+    cursor=db.cursor()
+    cursor.execute(sql)
+    try:
+        cursor.execute(sql)
+        db.commit()
+        is_updated=True
+    except:
+        print(sys.exc_info())
+    finally:
+        db.close()
+    return is_updated
