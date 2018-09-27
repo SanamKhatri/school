@@ -105,18 +105,61 @@ def search_by_contact_no(contact_no):
     return s
 
 
-def update_student_only_name(student_object):
-    is_updated = False
+def delete_by_roll_no(student_object):
+    is_delete = False
     db = connection()
-    sql = "update student set name='{}' where roll_no='{}'".format(student_object.getName(), student_object.getRollNo())
-    cursor=db.cursor()
-    cursor.execute(sql)
+    sql = "delete from student where roll_no='{}'".format(student_object.getRollNo())
+    cursor = db.cursor()
     try:
         cursor.execute(sql)
         db.commit()
-        is_updated=True
+        is_delete = True
     except:
         print(sys.exc_info())
     finally:
         db.close()
-    return is_updated
+    return is_delete
+
+
+def delete_by_name(student_object):
+    is_delete = False
+    db = connection()
+    sql = "delete from student where name='{}'".format(student_object.getName())
+    cursor = db.cursor()
+    try:
+        cursor.execute(sql)
+        db.commit()
+        is_delete = True
+    except:
+        print(sys.exc_info())
+    finally:
+        db.close()
+    return is_delete
+def delete_by_address(student_object):
+    is_delete = False
+    db = connection()
+    sql = "delete from student where address='{}'".format(student_object.getAddress())
+    cursor = db.cursor()
+    try:
+        cursor.execute(sql)
+        db.commit()
+        is_delete = True
+    except:
+        print(sys.exc_info())
+    finally:
+        db.close()
+    return is_delete
+def delete_by_contact_no(student_object):
+    is_delete = False
+    db = connection()
+    sql = "delete from student where contact_no='{}'".format(student_object.getContactNo())
+    cursor = db.cursor()
+    try:
+        cursor.execute(sql)
+        db.commit()
+        is_delete = True
+    except:
+        print(sys.exc_info())
+    finally:
+        db.close()
+    return is_delete
