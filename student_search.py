@@ -14,10 +14,9 @@ def search_student():
         student_detail = student_database.search_student_by_roll_no(search_roll_no)
         if student_detail:
             print("The student details is")
-            print("Roll No= " + student_detail[0])
             print("Name= " + student_detail[1])
             print("Address= " + student_detail[2])
-            print("Contact No= " + student_detail[3])
+            #print("Contact No= " + student_detail[3])
         else:
             print("The entered roll no is not in database")
     elif search_choice == 2:
@@ -25,10 +24,10 @@ def search_student():
         student_detail = student_database.search_student_by_name(search_name)
         if student_detail:
             print("The student details is")
-            print("Roll No= " + student_detail[0])
+            #print("Roll No= " + student_detail[0])
             print("Name= " + student_detail[1])
             print("Address= " + student_detail[2])
-            print("Contact No= " + student_detail[3])
+            #print("Contact No= " + student_detail[3])
         else:
             print("The entered roll no is not in database")
     elif search_choice == 3:
@@ -36,22 +35,22 @@ def search_student():
         student_detail = student_database.search_student_by_address(search_address)
         if student_detail:
             print("The student details is")
-            print("Roll No= " + student_detail[0])
+            #print("Roll No= " + student_detail[0])
             print("Name= " + student_detail[1])
             print("Address= " + student_detail[2])
-            print("Contact No= " + student_detail[3])
+            #print("Contact No= " + student_detail[3])
         else:
-            print("The entered roll no is not in database")
+            print("The entered address no is not in database")
     elif search_choice == 4:
         search_contact_no = input("Enter the contact no to search:")
         student_detail = student_database.search_by_contact_no(search_contact_no)
         if student_detail:
             print("The student details is")
-            print("Roll No= " + student_detail[0])
+            #print("Roll No= " + student_detail[0])
             print("Name= " + student_detail[1])
             print("Address= " + student_detail[2])
-            print("Contact No= " + student_detail[3])
+            #print("Contact No= " + student_detail[3])
         else:
-            print("The entered roll no is not in database")
+            print("The entered contact no is not in database")
     else:
         print("Invalid choice")

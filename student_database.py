@@ -56,23 +56,23 @@ def search_student_by_roll_no(roll_no):
     cursor.execute(sql)
     result = cursor.fetchone()
     if result:
-        s = Student(roll_no=result[0], name=result[1], address=result[2],
+        s = Student(name=result[1], address=result[2],
                     contact_no=result[3])
-        s.setRollNo()
+        s.setRollNo(result[0])
     return result
     return s
 
 
 def search_student_by_name(name):
     db = connection()
-    sql = "select * from student where first_name='{}'".format(name)
+    sql = "select * from student where name='{}'".format(name)
     cursor = db.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
     if result:
-        s = Student(roll_no=result[0], name=result[1], address=result[2],
+        s = Student(name=result[1], address=result[2],
                     contact_no=result[3])
-        s.setName()
+        s.setRollNo(result[0])
     return result
     return s
 
@@ -84,41 +84,25 @@ def search_student_by_address(address):
     cursor.execute(sql)
     result = cursor.fetchone()
     if result:
-        s = Student(roll_no=result[0], name=result[1], address=result[2],
+        s = Student(name=result[1], address=result[2],
                     contact_no=result[3])
-        s.setAddress()
+        s.setRollNo(result[0])
     return result
     return s
 
 
 def search_by_contact_no(contact_no):
     db = connection()
-    sql = "select * from student where address='{}'".format(contact_no)
+    sql = "select * from student where contact_no='{}'".format(contact_no)
     cursor = db.cursor()
     cursor.execute(sql)
     result = cursor.fetchone()
     if result:
-        s = Student(roll_no=result[0], name=result[1], address=result[2],
+        s = Student(name=result[1], address=result[2],
                     contact_no=result[3])
-        s.setContactNo()
+        s.setRollNo(result[0])
     return result
     return s
-
-
-def delete_by_roll_no(student_object):
-    is_delete = False
-    db = connection()
-    sql = "delete from student where roll_no='{}'".format(student_object.getRollNo())
-    cursor = db.cursor()
-    try:
-        cursor.execute(sql)
-        db.commit()
-        is_delete = True
-    except:
-        print(sys.exc_info())
-    finally:
-        db.close()
-    return is_delete
 
 
 def delete_by_name(student_object):
@@ -235,9 +219,11 @@ def update_by_contact_no(student_object):
 def update_by_name_and_address(student_object):
     is_updated = False
     db = connection()
-    sql = "update student set name='{}',address='{}' where roll_no='{}'".format(student_object.getName(),
-                                                                                student_object.getAddress(),
-                                                                                student_object.getRollNo())
+    sql = "update student set name='{}', address='{}', contact_no='{}' where roll_no='{}'".format(
+        student_object.getName(),
+        student_object.getAddress(),
+        student_object.getContactNo(),
+        student_object.getRollNo())
     cursor = db.cursor()
     try:
         cursor.execute(sql)
@@ -302,3 +288,26 @@ def update_by_name_address_and_contact_no(student_object):
     finally:
         db.close()
     return is_updated
+
+
+def show_student(student_object):
+    is_shown = False
+    db = connection()
+    sql = "select * from student"
+    cursor = db.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    for r in result:
+        print("Roll No={}".format(r[0]))
+        print("Name={}".format(r[1]))
+        print("Address={}".format(r[2]))
+        print("Contact No={}".format(r[3]))
+    try:
+        cursor.execute(sql)
+        db.commit()
+        is_shown = True
+    except:
+        print(sys.exc_info())
+    finally:
+        db.close()
+    return is_shown

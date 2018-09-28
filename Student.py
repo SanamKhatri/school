@@ -1,9 +1,8 @@
 class Student:
-    def __init__(self, name, address, contact_no, roll_no):
+    def __init__(self, name, address, contact_no):
         self.name = name
         self.address = address
         self.contact_no = contact_no
-        self.roll_no = roll_no
 
     def getName(self):
         return self.name

@@ -1,10 +1,12 @@
 class Teacher:
-    def __init__(self, name, address, contact_no, salary, subject):
+    def __init__(self, name, address, contact_no, salary, subject,sex):
         self.name = name
         self.address = address
         self.contact_no = contact_no
         self.salary = salary
         self.subject = subject
+        self.sex=sex
+
 
     def getName(self):
         return self.name
@@ -21,14 +23,11 @@ class Teacher:
     def getSubject(self):
         return self.subject
 
+    def getSex(self,sex):
+        return self.sex
+
     def setName(self, name):
         self.name = name
-
-    def setMiddleName(self, middle_name):
-        self.middle_name = middle_name
-
-    def setLastName(self, last_name):
-        self.last_name = last_name
 
     def setAddress(self, address):
         self.address = address
@@ -42,6 +41,8 @@ class Teacher:
     def setSubject(self, subject):
         self.subject = subject
 
+    def setSex(self,sex):
+        self.sex=sex
     def getSN(self):
         return self.sn
 
