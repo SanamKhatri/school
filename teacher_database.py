@@ -139,6 +139,7 @@ def show_teacher(teacher_object):
         print(sys.exc_info())
     finally:
         db.close()
+    return is_shown
 
 
 def update_name(teacher_object):

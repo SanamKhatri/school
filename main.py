@@ -2,6 +2,7 @@ import student_database
 from Student import Student
 from student_main import student_menu
 from teacher_main import teacher_menu
+from staff_main import staff_menu
 
 
 def main():
@@ -13,8 +14,10 @@ def main():
     choice = int(input("Enter the choice:"))
     if choice == 1:
         student_menu()
-    if choice == 2:
+    elif choice == 2:
         teacher_menu()
+    elif choice == 3:
+        staff_menu()
 
 
 if __name__ == '__main__':
